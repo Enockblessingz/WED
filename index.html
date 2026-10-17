@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Asifiwe &amp; Mambo — 11.12.2026">
   <meta property="og:description" content="You are cordially invited to witness the beginning of our forever.">
-  <meta property="og:image" content="https://YOUR-DOMAIN.com/Image%202026-05-01%20at%2017.20.21%20(1)%20copy.jpeg">
+  <meta property="og:image" content="https://weddinginvitation-one-eta.vercel.app/Image%202026-05-01%20at%2017.20.21%20(1)%20copy.jpeg">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231c2b22'/><text y='70' x='50' text-anchor='middle' font-size='46' fill='%23c5a059' font-family='Georgia,serif'>A%26L</text></svg>">
@@ -657,21 +657,32 @@
   document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
+    /* =========================================================
+       CONFIG — single source of truth
+       ========================================================= */
     const CONFIG = {
-      COUPLE_EMAIL: 'enockblessingz250@gmail.com',
+      COUPLE_EMAIL: 'asifiwe.and.mambo@gmail.com',
+      WEB3FORMS_KEY: '05a6e370-0919-4b3d-95a0-65339bd8014f',
+
       weddingDateISO: '2026-12-11T09:00:00+02:00',
       startUTC: '20261211T070000Z',
       endUTC:   '20261211T210000Z',
+
       eventTitle:   'ASIFIWE & MAMBO — Wedding',
       eventLocation:'UCC GIKONDO PARISH & IMPINGA VILLAGE KK 518 · KICUKIRO, Rwanda',
       eventDetails: 'Introduction 9:00 AM · Religious Ceremony 2:00 PM · Reception 5:00 PM · After Party 8:00 PM',
       mapsUrl:      'https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali'
     };
 
+    /* =========================================================
+       VERIFY MODE — QR scan lands here
+       ========================================================= */
     const verifyParam = new URLSearchParams(location.search).get('v');
     if (verifyParam) { renderVerify(verifyParam); return; }
 
-    /* ---------- utilities ---------- */
+    /* =========================================================
+       TOAST + CLIPBOARD
+       ========================================================= */
     let toastTimer;
     window.showToast = function (msg) {
       document.getElementById('toastMsg').textContent = msg;
@@ -699,6 +710,9 @@
 
     window.openMaps = function () { window.open(CONFIG.mapsUrl, '_blank', 'noopener'); };
 
+    /* =========================================================
+       RESERVATION ENCODING (base64url + checksum)
+       ========================================================= */
     function b64urlEncode(obj) {
       return btoa(unescape(encodeURIComponent(JSON.stringify(obj))))
         .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
@@ -735,7 +749,9 @@
       return 'AML-' + d + '-' + suffix;
     }
 
-    /* ---------- countdown ---------- */
+    /* =========================================================
+       COUNTDOWN
+       ========================================================= */
     const weddingTime = new Date(CONFIG.weddingDateISO).getTime();
     let timerFinished = false;
     function updateTimer() {
@@ -761,7 +777,9 @@
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    /* ---------- nav ---------- */
+    /* =========================================================
+       NAV
+       ========================================================= */
     window.addEventListener('scroll', function () {
       const nav = document.getElementById('navbar');
       const dark = document.querySelectorAll('#gateway,#home,#story,#countdown-section,#gallery,#reminder,footer');
@@ -792,7 +810,9 @@
       if (window.innerWidth > 900 && navLinks.classList.contains('open')) setMenu(false);
     });
 
-    /* ---------- gateway ---------- */
+    /* =========================================================
+       GATEWAY
+       ========================================================= */
     const gatewayEl = document.getElementById('gateway');
     function hideGateway(cb) {
       gatewayEl.style.transition = 'opacity .35s ease';
@@ -817,7 +837,9 @@
       });
     }
 
-    /* ---------- calendar ---------- */
+    /* =========================================================
+       CALENDAR
+       ========================================================= */
     window.addToGoogleCalendar = function () {
       const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
         + '&text=' + encodeURIComponent(CONFIG.eventTitle)
@@ -857,7 +879,9 @@
       showToast('Calendar file downloaded.');
     };
 
-    /* ---------- QR + PDF ---------- */
+    /* =========================================================
+       QR + PDF
+       ========================================================= */
     function buildQRDataURL(text) {
       return new Promise(function (resolve, reject) {
         if (typeof QRCode === 'undefined') return reject(new Error('QR library not loaded'));
@@ -993,16 +1017,24 @@
       setTimeout(function () { a.remove(); }, 150);
     }
 
-    /* ---------- email via FormSubmit ---------- */
+    /* =========================================================
+       EMAIL — Web3Forms (no ads, no branding)
+       ========================================================= */
     async function notifyByEmail(rec, verifyUrl) {
+      if (!CONFIG.WEB3FORMS_KEY || CONFIG.WEB3FORMS_KEY.length < 20) {
+        throw new Error('Web3Forms key missing');
+      }
+
       const payload = {
-        _subject: 'Wedding RSVP — ' + rec.name + ' (' + rec.attendance + ')',
-        _template: 'table',
-        _captcha: 'false',
-        _replyto: rec.email || '',
+        access_key: CONFIG.WEB3FORMS_KEY,
+        subject: 'Wedding RSVP — ' + rec.name + ' (' + rec.attendance + ')',
+        from_name: 'Asifiwe & Mambo · Wedding',
+        email: rec.email || CONFIG.COUPLE_EMAIL,
+        botcheck: '',
+
         Name: rec.name,
         Phone: rec.phone,
-        Email: rec.email || '—',
+        'Guest Email': rec.email || '—',
         Attendance: rec.attendance,
         Guests: rec.guests,
         Message: rec.message || '—',
@@ -1010,21 +1042,23 @@
         'Check-in link': verifyUrl,
         Submitted: new Date(rec.issued).toLocaleString('en-GB')
       };
-      if (rec.email) payload._cc = rec.email;
 
-      const res = await fetch(
-        'https://formsubmit.co/ajax/' + encodeURIComponent(CONFIG.COUPLE_EMAIL),
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify(payload)
-        }
-      );
-      if (!res.ok) throw new Error('FormSubmit HTTP ' + res.status);
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json().catch(function () { return {}; });
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || ('Web3Forms HTTP ' + res.status));
+      }
       return true;
     }
 
-    /* ---------- RSVP wizard ---------- */
+    /* =========================================================
+       RSVP WIZARD
+       ========================================================= */
     let selectedAttendance = '';
 
     window.validateForm = function () {
@@ -1063,7 +1097,9 @@
       validateForm();
     };
 
-    /* ---------- submit ---------- */
+    /* =========================================================
+       SUBMIT
+       ========================================================= */
     window.submitRSVP = async function () {
       if (!selectedAttendance) { showToast('Please choose an option first.'); return; }
 
@@ -1099,8 +1135,12 @@
         triggerDownload(blobUrl, 'RSVP-' + rec.id + '.pdf');
 
         let mailStatus = 'failed';
-        try { await notifyByEmail(rec, verifyUrl); mailStatus = 'sent'; }
-        catch (mailErr) { console.warn('Email notification failed:', mailErr); }
+        try {
+          await notifyByEmail(rec, verifyUrl);
+          mailStatus = 'sent';
+        } catch (mailErr) {
+          console.warn('Email notification failed:', mailErr);
+        }
 
         showThankYou(rec, blobUrl, verifyUrl, mailStatus);
 
@@ -1118,6 +1158,9 @@
       }
     };
 
+    /* =========================================================
+       THANK-YOU VIEW
+       ========================================================= */
     function showThankYou(rec, blobUrl, verifyUrl, mailStatus) {
       const box  = document.querySelector('#stepThankYou .confirmation-box');
       const text = document.getElementById('thankYouText');
@@ -1157,16 +1200,16 @@
       note.style.cssText =
         'font-size:.72rem;color:var(--text-muted-dark);max-width:360px;margin:4px auto 0;line-height:1.7';
       note.textContent = mailStatus === 'sent'
-        ? (rec.email
-            ? 'A copy of your reservation has been emailed to ' + rec.email + '.'
-            : 'Your reservation has been sent to the couple.')
+        ? 'Your reservation has been sent to the couple. Please keep the downloaded PDF safe — it contains your check-in QR code.'
         : 'Your PDF has been downloaded — please keep it safe. We could not reach the mail server, so you may wish to forward the PDF yourself.';
       wrap.appendChild(note);
 
       box.appendChild(wrap);
     }
 
-    /* ---------- lightbox ---------- */
+    /* =========================================================
+       LIGHTBOX
+       ========================================================= */
     const galleryImages = Array.from(
       document.querySelectorAll('#galleryGrid img')
     ).map(function (img) { return img.getAttribute('src'); });
@@ -1218,7 +1261,9 @@
       if (e.key === 'Escape' && navLinks.classList.contains('open')) setMenu(false);
     });
 
-    /* ---------- verify screen ---------- */
+    /* =========================================================
+       VERIFY SCREEN — opens when QR is scanned
+       ========================================================= */
     async function renderVerify(encoded) {
       document.body.innerHTML = '';
       document.body.style.cssText =
