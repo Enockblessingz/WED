@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asifiwe & Mambo — Wedding Invitation</title>
+  <title>Asifiwe &amp; Mambo — Wedding Invitation | 11 December 2026</title>
 
-  <meta name="description" content="Ange Benitha & Longin invite you to celebrate their wedding on Friday, 11 December 2026 in Kamonyi, Rwanda.">
+  <meta name="description" content="Asifiwe &amp; Mambo invite you to celebrate their wedding on Friday, 11 December 2026 at UCC Gikondo Parish and Impinga Village, Kicukiro, Kigali, Rwanda.">
   <meta name="theme-color" content="#1c2b22">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Ange & Longin — 11.12.2026">
+  <meta property="og:title" content="Asifiwe &amp; Mambo — 11.12.2026">
   <meta property="og:description" content="You are cordially invited to witness the beginning of our forever.">
-  <meta property="og:image" content="Image 2026-05-01 at 17.20.21 (1) copy.jpeg">
+  <!-- ⚠️ TODO: replace YOUR-DOMAIN.com with the real public domain so social scrapers can fetch this image -->
+  <meta property="og:image" content="https://YOUR-DOMAIN.com/Image%202026-05-01%20at%2017.20.21%20(1)%20copy.jpeg">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231c2b22'/><text y='70' x='50' text-anchor='middle' font-size='46' fill='%23c5a059' font-family='Georgia,serif'>A%26L</text></svg>">
@@ -245,7 +246,7 @@
     #home {
       background:
         linear-gradient(rgba(28, 43, 34, 0.82), rgba(28, 43, 34, 0.82)),
-        url("Image 2026-05-01 at 17.20.21 (1) copy.jpeg") center center / cover no-repeat;
+        url("Image%202026-05-01%20at%2017.20.21%20(1)%20copy.jpeg") center center / cover no-repeat;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -257,9 +258,11 @@
     }
 
     #home .names-inline {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 4rem;
       line-height: 1.1;
       margin: 10px 0;
+      letter-spacing: 1px;
     }
 
     .scroll-indicator {
@@ -1032,6 +1035,12 @@
     /* RESPONSIVE                                                */
     /* ========================================================= */
 
+    /* Keep the 9-link bar on one line on tablets / small laptops */
+    @media (max-width: 1080px) {
+      .nav-links { gap: 12px; }
+      .nav-links a { font-size: 0.62rem; letter-spacing: 1.4px; }
+    }
+
     @media (max-width: 900px) {
       nav { padding: 14px 20px; }
 
@@ -1281,7 +1290,7 @@
        NAVIGATION
        ========================================================= -->
   <nav id="navbar">
-    <a href="#home" class="nav-logo">A &amp; M</a>
+    <a href="#home" class="nav-logo">A &amp; L</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#home">Home</a></li>
       <li><a href="#couple">Couple</a></li>
@@ -1315,11 +1324,11 @@
   <!-- 2. HERO -->
   <section id="home">
     <span class="section-tag">We're Getting Married</span>
-    <h1 class="names-inline">ASIFIWE <span style="font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold-accent); font-weight: 300;">&amp;</span> MAMBO</h1>
+    <p class="names-inline">ASIFIWE <span style="font-style: italic; color: var(--gold-accent); font-weight: 300;">&amp;</span> MAMBO</p>
     <div style="border-top: 1px solid var(--gold-accent); border-bottom: 1px solid var(--gold-accent); padding: 8px 30px; margin: 15px 0;">
       <p style="font-size: 1.1rem; letter-spacing: 3px;">DECEMBER 11, 2026</p>
     </div>
-    <p style="font-size: 0.8rem; letter-spacing: 4px; color: var(--text-muted-light);">KICUKIRO &bull; IMPANGA VILLAGE KK 518 &bull; KIGALI-RWANDA</p>
+    <p style="font-size: 0.8rem; letter-spacing: 4px; color: var(--text-muted-light);">KICUKIRO &bull; IMPINGA VILLAGE KK 518 &bull; KIGALI-RWANDA</p>
 
     <div class="scroll-indicator">
       <span>Scroll</span>
@@ -1338,7 +1347,7 @@
       <div class="couple-grid">
         <div class="couple-card">
           <div class="couple-img-wrap">
-            <img src="THE BRIDE.jpeg" alt="NZAMWITA ASIFIWE SYLIVIE" loading="lazy" decoding="async">
+            <img src="THE%20BRIDE.jpeg" alt="NZAMWITA ASIFIWE SYLIVIE" loading="lazy" decoding="async">
           </div>
           <span class="section-tag">The Bride</span>
           <h3 class="person-name">NZAMWITA ASIFIWE SYLIVIE</h3>
@@ -1348,7 +1357,7 @@
 
         <div class="couple-card">
           <div class="couple-img-wrap">
-            <img src="THE GROOM.jpeg" alt="K.MAMBO JOHNSON" loading="lazy" decoding="async">
+            <img src="THE%20GROOM.jpeg" alt="K.MAMBO JOHNSON" loading="lazy" decoding="async">
           </div>
           <span class="section-tag">The Groom</span>
           <h3 class="person-name">K.MAMBO JOHNSON</h3>
@@ -1546,17 +1555,18 @@
               <svg class="icon icon-sm event-meta-icon"><use href="#i-bowtie"/></svg>
               <span>Elegant Wedding Attire</span>
             </li>
-          </ul><a
-  href="https://www.google.com/maps/search/?api=1&query=United+Christian+Church+Gikondo+UCC+Gikondo%2C+23CG%2BV9M%2C+KK+31+Ave%2C+Kigali%2C+Rwanda"
-  target="_blank"
-  rel="noopener noreferrer"
-  class="btn-map"
->
-  <svg class="icon icon-sm">
-    <use href="#i-pin"/>
-  </svg>
-  View on Google Map
-</a>
+          </ul>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=United+Christian+Church+Gikondo+UCC+Gikondo%2C+23CG%2BV9M%2C+KK+31+Ave%2C+Kigali%2C+Rwanda"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-map"
+          >
+            <svg class="icon icon-sm">
+              <use href="#i-pin"/>
+            </svg>
+            View on Google Map
+          </a>
         </article>
 
         <!-- Event 2 -->
@@ -1599,17 +1609,15 @@
             </li>
           </ul>
 
-          
-<a href="https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="btn-map">
-  <svg class="icon icon-sm">
-    <use href="#i-pin"/>
-  </svg>
-  View on Google Map
-</a>
-
+          <a href="https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="btn-map">
+            <svg class="icon icon-sm">
+              <use href="#i-pin"/>
+            </svg>
+            View on Google Map
+          </a>
         </article>
       </div>
     </div>
@@ -1689,7 +1697,7 @@
 
   <!-- Lightbox -->
   <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Photo viewer">
-    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close photo viewer">
+    <button class="lightbox-close" id="lightboxClose" onclick="closeLightbox()" aria-label="Close photo viewer">
       <svg class="icon icon-md"><use href="#i-close"/></svg>
     </button>
     <button class="lightbox-prev" onclick="event.stopPropagation(); changeLightbox(-1);" aria-label="Previous photo">
@@ -1761,7 +1769,7 @@
             <input type="tel" class="form-input" id="inputPhone" placeholder="+250 ..." oninput="validateForm()" autocomplete="tel">
           </div>
           <div class="form-group">
-            <label for="inputEmail">Email Address</label>
+            <label for="inputEmail">Email Address (optional)</label>
             <input type="email" class="form-input" id="inputEmail" placeholder="you@example.com" oninput="validateForm()" autocomplete="email">
           </div>
           <div class="wizard-actions">
@@ -1865,7 +1873,7 @@
           </div>
           <div class="reminder-lbl">Download .ics</div>
         </button>
-        <button class="reminder-card" onclick="window.open('https://www.google.com/maps?q=-2.0011,29.8431','_blank','noopener')">
+        <button class="reminder-card" onclick="openMaps()">
           <div class="reminder-icon">
             <svg class="icon icon-xl"><use href="#i-pin"/></svg>
           </div>
@@ -1874,8 +1882,8 @@
       </div>
 
       <div class="venue-copy-box">
-        <span>Musambira Catholic Parish &amp; IMPINGA VILLAGE KK 518 · KICUKIRO, Rwanda</span>
-        <button class="btn-copy" onclick="copyText('Musambira Catholic Parish & IMPINGA VILLAGE KK 518 · KICUKIRO, Rwanda')">
+        <span>UCC Gikondo Parish &amp; Impinga Village KK 518 · Kicukiro, Kigali, Rwanda</span>
+        <button class="btn-copy" onclick="copyText('UCC Gikondo Parish & Impinga Village KK 518, Kicukiro, Kigali, Rwanda')">
           <svg class="icon icon-sm"><use href="#i-copy"/></svg>
           Copy Venue
         </button>
@@ -1929,7 +1937,7 @@
         <div class="gift-card">
           <div class="gift-provider">Bank Transfer</div>
           <p style="font-size: 0.75rem; color: var(--text-muted-dark);">Bank Account · Bank of Kigali</p>
-          <!-- ⚠️ TODO: replace with the real account number before publishing -->
+          <!-- ⚠️ TODO: replace BOTH the visible number and the copyText() argument with the real account number before publishing -->
           <div class="gift-account">XXXX XXXX XXXX</div>
           <button class="btn-copy" onclick="copyText('XXXX XXXX XXXX')">
             <svg class="icon icon-sm"><use href="#i-copy"/></svg>
@@ -1987,7 +1995,7 @@
       eventTitle:   'ASIFIWE & MAMBO — Wedding',
       eventLocation:'UCC GIKONDO PARISH & IMPINGA VILLAGE KK 518 · KICUKIRO, Rwanda',
       eventDetails: 'Introduction 9:00 AM · Religious Ceremony 2:00 PM · Reception 5:00 PM at IMPINGA VILLAGE KK 518 · After Party 8:00 PM',
-      mapsUrl:      'https://www.google.com/maps?q=-2.0011,29.8431'
+      mapsUrl:      'https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali'
     };
 
     /* =========================================================
@@ -2025,6 +2033,13 @@
       } else {
         fallback();
       }
+    }
+
+    /* =========================================================
+       MAPS
+       ========================================================= */
+    function openMaps() {
+      window.open(CONFIG.mapsUrl, '_blank', 'noopener');
     }
 
     /* =========================================================
@@ -2117,14 +2132,35 @@
     });
 
     /* =========================================================
-       GATEWAY — hide after entering
+       GATEWAY — hide, then jump to hero
+       (hiding first avoids the 100vh layout shift that used to
+        land visitors one screen below the hero)
        ========================================================= */
-    document.getElementById('btnOpen').addEventListener('click', () => {
-      const gateway = document.getElementById('gateway');
-      gateway.style.transition = 'opacity .4s ease';
-      gateway.style.opacity = '0';
-      setTimeout(() => { gateway.style.display = 'none'; }, 400);
+    const gatewayEl = document.getElementById('gateway');
+
+    function hideGateway(callback) {
+      gatewayEl.style.transition = 'opacity .35s ease';
+      gatewayEl.style.opacity = '0';
+      setTimeout(() => {
+        gatewayEl.style.display = 'none';
+        if (callback) callback();
+      }, 350);
+    }
+
+    document.getElementById('btnOpen').addEventListener('click', (e) => {
+      e.preventDefault();
+      hideGateway(() => {
+        document.getElementById('home').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', '#home');
+      });
     });
+
+    // Deep links (e.g. shared /#rsvp) skip the gateway entirely
+    if (location.hash && location.hash !== '#gateway') {
+      gatewayEl.style.display = 'none';
+      const target = document.querySelector(location.hash);
+      if (target) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+    }
 
     /* =========================================================
        CALENDAR
@@ -2153,11 +2189,11 @@
       const lines = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//Ange and Longin//Wedding//EN',
+        'PRODID:-//Asifiwe and Mambo//Wedding//EN',
         'CALSCALE:GREGORIAN',
         'METHOD:PUBLISH',
         'BEGIN:VEVENT',
-        'UID:' + Date.now() + '-angeandlongin@wedding',
+        'UID:' + Date.now() + '-asifiweandmambo@wedding',
         'DTSTAMP:' + stamp,
         'DTSTART:' + CONFIG.startUTC,
         'DTEND:'   + CONFIG.endUTC,
@@ -2177,7 +2213,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'Ange-and-Longin-Wedding.ics';
+      a.download = 'Asifiwe-and-Mambo-Wedding.ics';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -2199,7 +2235,8 @@
 
       document.getElementById('btnStep1').disabled = name.length < 2;
 
-      const emailOk = emailEl.checkValidity() && email.length > 4;
+      // Email is optional — only validate it when something was typed
+      const emailOk = email === '' || (emailEl.checkValidity() && email.length > 4);
       document.getElementById('btnStep2').disabled = phone.length < 7 || !emailOk;
 
       document.getElementById('btnStep3').disabled = selectedAttendance === '';
@@ -2248,7 +2285,7 @@
         '─────────────────',
         'Name: ' + name,
         'Phone: ' + phone,
-        'Email: ' + email,
+        'Email: ' + (email || '—'),
         'Attendance: ' + selectedAttendance,
         selectedAttendance === 'Joyfully accept' ? 'Guests: ' + guests : '',
         message ? 'Message: ' + message : ''
@@ -2281,24 +2318,12 @@
 
     /* =========================================================
        GALLERY LIGHTBOX
+       Derived from the DOM so it can never drift out of sync
+       with the thumbnails above.
        ========================================================= */
-    const galleryImages = [
-      "Image 2026-05-01 at 17.20.19 (2).jpeg",
-      "Image 2026-05-01 at 17.20.20 (1).jpeg",
-      "Image 2026-04-22 at 23.56.07.jpeg",
-      "Image 2026-05-01 at 17.20.20 (3).jpeg",
-      "Image 2026-05-01 at 17.20.21 (1).jpeg",
-      "Image 2026-04-22 at 23.56.10.jpeg",
-      "Image 2026-04-22 at 23.56.00.jpeg",
-      "Image 2026-05-01 at 17.20.17.jpeg",
-      "Image 2026-04-22 at 23.56.16.jpeg",
-      "Image 2026-05-01 at 17.20.17 (1).jpeg",
-      "Image 2026-04-22 at 23.55.58.jpeg",
-      "Image 2026-04-22 at 23.56.11.jpeg",
-      "Image 2026-07-23 at 17.27.36.jpeg",
-      "Image 2026-05-01 at 17.20.19.jpeg",
-      "Image 2026-05-01 at 17.20.18 (1).jpeg"
-    ];
+    const galleryImages = Array.from(
+      document.querySelectorAll('#galleryGrid img')
+    ).map(img => img.getAttribute('src'));
 
     let currentLightboxIdx = 0;
     let lastFocused = null;
@@ -2309,6 +2334,7 @@
       updateLightbox();
       document.getElementById('lightboxModal').classList.add('active');
       document.body.style.overflow = 'hidden';
+      document.getElementById('lightboxClose').focus();
     }
 
     function closeLightbox() {
@@ -2330,11 +2356,26 @@
 
     document.addEventListener('keydown', (e) => {
       const modal = document.getElementById('lightboxModal');
-      if (modal.classList.contains('active')) {
+      const modalOpen = modal.classList.contains('active');
+
+      if (modalOpen) {
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowLeft') changeLightbox(-1);
         if (e.key === 'ArrowRight') changeLightbox(1);
+
+        // Simple focus trap so Tab stays inside the dialog
+        if (e.key === 'Tab') {
+          const focusables = modal.querySelectorAll('button');
+          const first = focusables[0];
+          const last  = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+        }
       }
+
       if (e.key === 'Escape' && navLinks.classList.contains('open')) setMenu(false);
     });
   </script>
