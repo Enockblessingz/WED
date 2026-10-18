@@ -96,17 +96,6 @@
     
     .btn-sm { background: var(--gold-accent); color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: 600; display: inline-block; transition: opacity 0.2s; }
     .btn-sm:hover { opacity: 0.8; }
-
-    /* Print Styles */
-    @media print {
-      body { background: white; }
-      #dashboard { padding: 0; max-width: 100%; }
-      .btn-group, .controls, th:last-child, td:last-child { display: none !important; }
-      .table-wrap { box-shadow: none; border: none; }
-      .stat-card { border: 1px solid #ccc; box-shadow: none; }
-      th { background: #eee !important; color: #000 !important; -webkit-print-color-adjust: exact; }
-      .dash-header { border-bottom: 2px solid #000; }
-    }
   </style>
 </head>
 <body>
@@ -153,9 +142,6 @@
     <div class="dash-header">
       <h1>Admin Dashboard</h1>
       <div class="btn-group">
-        <button class="btn btn-outline" onclick="window.print()">
-          <svg class="icon icon-sm"><use href="#i-printer"/></svg> Print List
-        </button>
         <button class="btn" onclick="downloadPDF()">
           <svg class="icon icon-sm"><use href="#i-file"/></svg> Download PDF
         </button>
@@ -163,7 +149,7 @@
           <svg class="icon icon-sm"><use href="#i-download"/></svg> Export CSV
         </button>
         <button class="btn btn-danger" onclick="logout()">
-          <svg class="icon icon-sm"><use href="#i-logout"/></svg> Logout
+          <svg class="icon icon-sm"><use href="#i-logout"/></svg> Sign Out
         </button>
       </div>
     </div>
