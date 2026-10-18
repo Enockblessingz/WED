@@ -36,8 +36,17 @@
     .icon-sm { width: 16px; height: 16px; }
     
     /* Auth Screen */
-    #auth-screen { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-    .auth-box { width: 100%; max-width: 420px; background: white; padding: 45px 35px; border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); border: 1px solid var(--border-cream); text-align: center; }
+    #auth-screen { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      min-height: 100vh; 
+      padding: 20px; 
+      /* NEW BACKGROUND IMAGE ADDED HERE */
+      background: linear-gradient(rgba(20, 32, 25, 0.85), rgba(20, 32, 25, 0.85)), url('Hello.jpg') center center / cover no-repeat;
+    }
+    
+    .auth-box { width: 100%; max-width: 420px; background: white; padding: 45px 35px; border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 1px solid var(--border-cream); text-align: center; }
     .auth-box h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--forest-green); margin-bottom: 5px; }
     .auth-box p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 25px; }
     
@@ -96,6 +105,17 @@
     
     .btn-sm { background: var(--gold-accent); color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: 600; display: inline-block; transition: opacity 0.2s; }
     .btn-sm:hover { opacity: 0.8; }
+
+    /* Print Styles */
+    @media print {
+      body { background: white; }
+      #dashboard { padding: 0; max-width: 100%; }
+      .btn-group, .controls, th:last-child, td:last-child { display: none !important; }
+      .table-wrap { box-shadow: none; border: none; }
+      .stat-card { border: 1px solid #ccc; box-shadow: none; }
+      th { background: #eee !important; color: #000 !important; -webkit-print-color-adjust: exact; }
+      .dash-header { border-bottom: 2px solid #000; }
+    }
   </style>
 </head>
 <body>
@@ -142,6 +162,9 @@
     <div class="dash-header">
       <h1>Admin Dashboard</h1>
       <div class="btn-group">
+        <button class="btn btn-outline" onclick="window.print()">
+          <svg class="icon icon-sm"><use href="#i-printer"/></svg> Print List
+        </button>
         <button class="btn" onclick="downloadPDF()">
           <svg class="icon icon-sm"><use href="#i-file"/></svg> Download PDF
         </button>
