@@ -809,7 +809,6 @@
       eventDetails: 'Introduction 9:00 AM · Religious Ceremony 2:00 PM · Reception 5:00 PM · After Party 8:00 PM',
       mapsUrl:      'https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali',
 
-      // ⬇️ Used by PDF + email reminder
       eventWhen:  'Friday · Dec 11, 2026 · 9:00 AM Rwanda Time',
       eventWhere: 'UCC Gikondo Parish & Impinga Village KK 518, Kicukiro, Kigali, Rwanda',
       contactPhone: '+250 790 458 440'
@@ -867,12 +866,20 @@
         return o.data;
       } catch (e) { return null; }
     }
+
+    /* =========================================================
+       Reservation ID — format: AML-YYYY-MMDD-XXXXXX
+       (e.g. AML-2026-1017-318259)
+       ========================================================= */
     function makeReservationId() {
-      const d = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+      const now = new Date();
+      const yyyy = now.getUTCFullYear();
+      const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+      const dd = String(now.getUTCDate()).padStart(2, '0');
       const bytes = new Uint8Array(3);
       (window.crypto || window.msCrypto).getRandomValues(bytes);
       const suffix = Array.from(bytes).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('').toUpperCase();
-      return 'AML-' + d + '-' + suffix;
+      return 'AML-' + yyyy + '-' + mm + dd + '-' + suffix;
     }
 
     const weddingTime = new Date(CONFIG.weddingDateISO).getTime();
@@ -1013,8 +1020,8 @@
     }
 
     /* =========================================================
-       PDF — with WHEN / VENUE (multi-line) / CITY / ISSUED AT
-       and footer divider + Call/WhatsApp line
+       PDF — labels with colons, multi-line VENUE,
+       auto-wrapped values, and "Need support or help?" footer
        ========================================================= */
     function buildPDFBlob(rec, qrDataUrl) {
       if (!window.jspdf || !window.jspdf.jsPDF) throw new Error('PDF library not loaded');
@@ -1057,42 +1064,52 @@
       doc.text(ok ? 'ATTENDING' : 'DECLINED', W - M - 57, y + 29, { align: 'center' });
 
       // Detail rows
-      y = 164;
+      y = 162;
+      const labelX = M + 12;
+      const valueX = M + 95;
+      const valueWidth = W - M - valueX - 8;
+
       const rows = [
-        { label: 'GUEST',     value: rec.name },
-        { label: 'GUESTS',    value: rec.guests },
-        { label: 'PHONE',     value: rec.phone },
-        { label: 'EMAIL',     value: rec.email || '—' },
-        { label: 'WHEN',      value: 'Friday · Dec 11, 2026 · 9:00 AM' },
-        { label: 'VENUE',     value: [
-            'Introduction & Dowry Ceremony',
-            'At Impinga Village, KK 518 St, Kigali',
-            'Religious Wedding Ceremony',
-            'UCC Gikondo Parish'
+        { label: 'GUEST NAME:',       value: rec.name },
+        { label: 'NUMBER OF GUESTS:', value: rec.guests },
+        { label: 'PHONE NUMBER:',     value: rec.phone },
+        { label: 'EMAIL ADDRESS:',    value: rec.email || '—' },
+        { label: 'TAKE PLACE ON:',    value: 'Friday · Dec 11, 2026 · 9:00 AM' },
+        { label: 'VENUE :',           value: [
+            'Introduction & Dowry Ceremony At Impinga Village, KK 518 St, Kigali.',
+            'Religious Wedding Ceremony UCC Gikondo Parish.'
           ] },
-        { label: 'CITY',      value: 'Kicukiro, Kigali, Rwanda' },
-        { label: 'ISSUED AT', value: new Date(rec.issued).toLocaleString('en-GB') }
+        { label: 'CITY:',             value: 'Kicukiro, Kigali, Rwanda' },
+        { label: 'ISSUED AT:',        value: new Date(rec.issued).toLocaleString('en-GB') }
       ];
 
-      doc.setFont('helvetica', 'normal');
       rows.forEach(function (row) {
-        doc.setFontSize(7); doc.setTextColor(122, 130, 124);
-        doc.text(row.label, M + 14, y);
-        doc.setFontSize(9.5); doc.setTextColor(44, 51, 46);
-        if (Array.isArray(row.value)) {
-          row.value.forEach(function (line, i) {
-            doc.text(line, M + 86, y + i * 11);
+        // Label
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(7);
+        doc.setTextColor(122, 130, 124);
+        doc.text(row.label, labelX, y);
+
+        // Value (with auto-wrap)
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(9);
+        doc.setTextColor(44, 51, 46);
+
+        const lines = Array.isArray(row.value) ? row.value : [String(row.value)];
+        let vy = y;
+        lines.forEach(function (line) {
+          const wrapped = doc.splitTextToSize(line, valueWidth);
+          wrapped.forEach(function (w) {
+            doc.text(w, valueX, vy);
+            vy += 11;
           });
-          y += row.value.length * 11 + 4;
-        } else {
-          doc.text(String(row.value), M + 86, y, { maxWidth: W - M - 96 });
-          y += 16;
-        }
+        });
+        y = vy + 3;
       });
 
       // QR block
-      y += 14;
-      const qrSize = 96;
+      y += 10;
+      const qrSize = 92;
       doc.setDrawColor(197, 160, 89); doc.setLineWidth(0.8);
       doc.rect(M + 4, y, qrSize + 8, qrSize + 8);
       doc.addImage(qrDataUrl, 'PNG', M + 8, y + 4, qrSize, qrSize);
@@ -1104,7 +1121,7 @@
       doc.text(
         'Show this QR code to a member of staff on arrival. It is unique to this reservation.',
         M + qrSize + 24, y + 34,
-        { maxWidth: W - (M + qrSize + 24) - M - 4, lineHeightFactor: 1.3 }
+        { maxWidth: W - (M + qrSize + 24) - M - 4, lineHeightFactor: 1.4 }
       );
 
       // Footer
@@ -1115,7 +1132,10 @@
       doc.line(M + 40, H - 32, W - M - 40, H - 32);
 
       doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(122, 130, 124);
-      doc.text('Call / WhatsApp: ' + CONFIG.contactPhone, W / 2, H - 16, { align: 'center' });
+      doc.text(
+        'Need support or help?    Call / WhatsApp: ' + CONFIG.contactPhone,
+        W / 2, H - 16, { align: 'center' }
+      );
 
       return doc.output('blob');
     }
@@ -1155,10 +1175,7 @@
         from_name: 'Asifiwe & Mambo · Wedding',
         email: rec.email || CONFIG.COUPLE_EMAIL,
         botcheck: '',
-
-        // Reminder appears first in the email body
         Message: reminder,
-
         Name: rec.name,
         Phone: rec.phone,
         'Guest Email': rec.email || '—',
