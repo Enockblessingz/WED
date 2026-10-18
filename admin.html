@@ -42,7 +42,6 @@
       align-items: center; 
       min-height: 100vh; 
       padding: 20px; 
-      /* NEW BACKGROUND IMAGE ADDED HERE */
       background: linear-gradient(rgba(20, 32, 25, 0.85), rgba(20, 32, 25, 0.85)), url('Hello.jpg') center center / cover no-repeat;
     }
     
@@ -71,29 +70,42 @@
     .back-link:hover { text-decoration: underline; }
 
     /* Dashboard */
-    #dashboard { display: none; max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    #dashboard { 
+      display: none; 
+      min-height: 100vh;
+      padding: 40px 20px; 
+      /* BACKGROUND IMAGE ADDED TO DASHBOARD */
+      background: linear-gradient(rgba(20, 32, 25, 0.92), rgba(20, 32, 25, 0.92)), url('Hello.jpg') center center / cover no-repeat;
+      background-attachment: fixed;
+    }
     
-    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--border-cream); padding-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-    .dash-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--forest-green); }
+    .dashboard-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+    /* Changed text color to gold for visibility on dark background */
+    .dash-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--gold-accent); }
     
     .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
     .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--forest-green); color: white; border: none; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; transition: background 0.3s; text-decoration: none; }
     .btn:hover { background: var(--gold-accent); }
-    .btn-outline { background: transparent; color: var(--forest-green); border: 1px solid var(--forest-green); }
-    .btn-outline:hover { background: var(--forest-green); color: white; }
+    .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); }
+    .btn-outline:hover { background: white; color: var(--forest-green); border-color: white; }
     .btn-danger { background: #a94442; }
     .btn-danger:hover { background: #d32f2f; }
     
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-    .stat-card { background: white; padding: 25px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid var(--border-cream); }
+    .stat-card { background: white; padding: 25px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid var(--border-cream); }
     .stat-card h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
     .stat-card p { font-size: 2.5rem; font-weight: 600; color: var(--gold-accent); line-height: 1; }
     
     .controls { display: flex; margin-bottom: 20px; gap: 15px; }
-    .controls input { flex: 1; padding: 14px 20px; border: 1px solid #d8d0c2; border-radius: 4px; font-family: inherit; font-size: 1rem; outline: none; }
+    .controls input { flex: 1; padding: 14px 20px; border: 1px solid transparent; border-radius: 4px; font-family: inherit; font-size: 1rem; outline: none; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
     .controls input:focus { border-color: var(--gold-accent); }
     
-    .table-wrap { background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1px solid var(--border-cream); overflow-x: auto; }
+    .table-wrap { background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 1px solid var(--border-cream); overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; text-align: left; min-width: 800px; }
     th, td { padding: 16px 20px; border-bottom: 1px solid var(--border-cream); }
     th { background: #fbf9f4; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.2px; font-weight: 600; }
@@ -105,17 +117,6 @@
     
     .btn-sm { background: var(--gold-accent); color: white; padding: 6px 14px; border-radius: 4px; text-decoration: none; font-size: 0.75rem; font-weight: 600; display: inline-block; transition: opacity 0.2s; }
     .btn-sm:hover { opacity: 0.8; }
-
-    /* Print Styles */
-    @media print {
-      body { background: white; }
-      #dashboard { padding: 0; max-width: 100%; }
-      .btn-group, .controls, th:last-child, td:last-child { display: none !important; }
-      .table-wrap { box-shadow: none; border: none; }
-      .stat-card { border: 1px solid #ccc; box-shadow: none; }
-      th { background: #eee !important; color: #000 !important; -webkit-print-color-adjust: exact; }
-      .dash-header { border-bottom: 2px solid #000; }
-    }
   </style>
 </head>
 <body>
@@ -127,7 +128,6 @@
       <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></symbol>
       <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M6.5 11l5.5 5.5L17.5 11"/><path d="M5 21h14"/></symbol>
       <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol>
-      <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
       <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></symbol>
     </defs>
   </svg>
@@ -159,52 +159,53 @@
 
   <!-- Dashboard -->
   <div id="dashboard">
-    <div class="dash-header">
-      <h1>Admin Dashboard</h1>
-      <div class="btn-group">
-        <button class="btn btn-outline" onclick="window.print()">
-          <svg class="icon icon-sm"><use href="#i-printer"/></svg> Print List
-        </button>
-        <button class="btn" onclick="downloadPDF()">
-          <svg class="icon icon-sm"><use href="#i-file"/></svg> Download PDF
-        </button>
-        <button class="btn btn-outline" onclick="exportCSV()">
-          <svg class="icon icon-sm"><use href="#i-download"/></svg> Export CSV
-        </button>
-        <button class="btn btn-danger" onclick="logout()">
-          <svg class="icon icon-sm"><use href="#i-logout"/></svg> Sign Out
-        </button>
+    <div class="dashboard-inner">
+      
+      <div class="dash-header">
+        <h1>Admin Dashboard</h1>
+        <div class="btn-group">
+          <button class="btn" onclick="downloadPDF()">
+            <svg class="icon icon-sm"><use href="#i-file"/></svg> Download PDF
+          </button>
+          <button class="btn btn-outline" onclick="exportCSV()">
+            <svg class="icon icon-sm"><use href="#i-download"/></svg> Export CSV
+          </button>
+          <button class="btn btn-danger" onclick="logout()">
+            <svg class="icon icon-sm"><use href="#i-logout"/></svg> Sign Out
+          </button>
+        </div>
       </div>
-    </div>
 
-    <div class="stats-grid">
-      <div class="stat-card"><h3>Total RSVPs</h3><p id="stat-total">0</p></div>
-      <div class="stat-card"><h3>Attending</h3><p id="stat-attending">0</p></div>
-      <div class="stat-card"><h3>Declined</h3><p id="stat-declined">0</p></div>
-      <div class="stat-card"><h3>Total Guests</h3><p id="stat-guests">0</p></div>
-    </div>
+      <div class="stats-grid">
+        <div class="stat-card"><h3>Total RSVPs</h3><p id="stat-total">0</p></div>
+        <div class="stat-card"><h3>Attending</h3><p id="stat-attending">0</p></div>
+        <div class="stat-card"><h3>Declined</h3><p id="stat-declined">0</p></div>
+        <div class="stat-card"><h3>Total Guests</h3><p id="stat-guests">0</p></div>
+      </div>
 
-    <div class="controls">
-      <input type="text" id="search" placeholder="Search by name, phone, or reference..." oninput="renderTable()">
-    </div>
+      <div class="controls">
+        <input type="text" id="search" placeholder="Search by name, phone, or reference..." oninput="renderTable()">
+      </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Guests</th>
-            <th>Reference</th>
-            <th>Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="table-body">
-          <tr><td colspan="7" style="text-align:center; padding: 30px;">Loading...</td></tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Guests</th>
+              <th>Reference</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr><td colspan="7" style="text-align:center; padding: 30px;">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      
     </div>
   </div>
 
