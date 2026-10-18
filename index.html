@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Libraries: PDF, QR Code, Firebase (Compat for single-file usage) -->
+  <!-- Libraries: PDF, QR Code, Firebase -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
@@ -313,16 +313,16 @@
     /* Auth Screen */
     .adm-auth-container { max-width: 400px; margin: 80px auto; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #e2ddd3; text-align: center; }
     .adm-auth-container h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: #1c2b22; margin-bottom: 20px; }
-    .adm-auth-container input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d8d0c2; border-radius: 4px; font-family: inherit; }
+    .adm-auth-container input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d8d0c2; border-radius: 4px; font-family: inherit; font-size: 1rem; }
     .adm-auth-container button { width: 100%; padding: 14px; background: #1c2b22; color: #fff; border: none; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 15px; transition: background 0.3s; }
     .adm-auth-container button:hover { background: #c5a059; }
     .adm-auth-container button:disabled { opacity: 0.7; cursor: not-allowed; }
     .adm-auth-toggle { font-size: 0.8rem; color: #7a827c; cursor: pointer; text-decoration: underline; }
-    .adm-error { display: none; background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 15px; border: 1px solid #ffcdd2; text-align: left; }
+    .adm-error { display: none; background: #ffebee; color: #c62828; padding: 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 15px; border: 1px solid #ffcdd2; text-align: left; line-height: 1.4; }
     
     /* Dashboard Area */
     #adm-main-content { display: none; }
-    .adm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #e2ddd3; padding-bottom: 20px; }
+    .adm-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #e2ddd3; padding-bottom: 20px; flex-wrap: wrap; gap: 10px; }
     .adm-header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: #1c2b22; }
     .adm-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
     .adm-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #e2ddd3; }
@@ -334,7 +334,7 @@
     .adm-btn:hover { background: #c5a059; }
     .adm-btn-sm { background: #c5a059; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-decoration: none; display: inline-block; }
     .adm-table-wrap { background: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: auto; border: 1px solid #e2ddd3; }
-    #adm-table { width: 100%; border-collapse: collapse; text-align: left; }
+    #adm-table { width: 100%; border-collapse: collapse; text-align: left; min-width: 800px; }
     #adm-table th, #adm-table td { padding: 16px; border-bottom: 1px solid #e2ddd3; }
     #adm-table th { background: #fbf9f4; font-size: 0.75rem; text-transform: uppercase; color: #7a827c; letter-spacing: 1px; font-weight: 600; }
     #adm-table td { font-size: 0.9rem; }
@@ -937,7 +937,7 @@
       contactPhone: '+250 790 458 440'
     };
 
-    // Your live Firebase Config (adapted for compat SDK)
+    // Your live Firebase Config
     const FIREBASE_CONFIG = {
       apiKey: "AIzaSyDOiA0Q3OfUkDIcQ2SQmkATb96iPiG0osE",
       authDomain: "wedding-invitation-483c0.firebaseapp.com",
