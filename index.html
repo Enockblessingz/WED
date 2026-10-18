@@ -798,9 +798,18 @@
           <h3>Scan to Gift</h3>
           <p>Scan the QR code with your phone's camera to send your blessing directly. Every gesture means the world to us.</p>
         </div>
-        <div class="qr-placeholder">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=0&color=1c2b22&bgcolor=ffffff&data=MTN%20MoMo%20%3A%20%2B250790458440" alt="QR code containing the MTN MoMo gift number" width="240" height="240" loading="lazy" decoding="async">
+              <div class="scan-gift-banner">
+        <div class="scan-gift-content">
+          <h3>Scan to Gift</h3>
+          <p>Scan the QR code with your phone's camera — it opens <strong style="color:var(--gold-accent);white-space:nowrap;">*182*1*1*0790458440*AMOUNT#</strong>. Simply replace <em>AMOUNT</em> with the gift you wish to send, then press call to confirm. Every gesture means the world to us.</p>
+          <button class="btn-copy" style="margin-top:16px;" onclick="copyText('*182*1*1*0790458440*AMOUNT#')">
+            <svg class="icon icon-sm"><use href="#i-copy"/></svg> Copy USSD Code
+          </button>
         </div>
+        <div class="qr-placeholder">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&amp;margin=0&amp;color=1c2b22&amp;bgcolor=ffffff&amp;data=tel%3A%2A182%2A1%2A1%2A0790458440%2AAMOUNT%23" alt="QR code that opens *182*1*1*0790458440*AMOUNT# in the phone dialer" width="240" height="240" loading="lazy" decoding="async">
+        </div>
+      </div>
       </div>
       <div class="gift-methods">
         <div class="gift-card">
