@@ -70,12 +70,10 @@
     nav.dark-nav { background: rgba(20,32,25,0.95); border-bottom: 1px solid var(--border-green); color: var(--text-light); }
     .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--gold-accent); text-decoration: none; font-weight: 600; position: relative; z-index: 3; }
     
-    /* Nav Links */
     .nav-links { display: flex; gap: 20px; list-style: none; }
     .nav-links a { text-decoration: none; color: inherit; font-size: .68rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; transition: color .3s; }
     .nav-links a:hover { color: var(--gold-accent); }
     
-    /* Hamburger Toggle */
     .nav-toggle { display: none; position: relative; z-index: 3; background: transparent; border: none; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; color: inherit; }
     .nav-toggle span { display: block; width: 24px; height: 2px; background: currentColor; transition: transform .3s, opacity .3s; }
     .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -309,37 +307,21 @@
     .toast { position: fixed; bottom: 30px; left: 50%; transform: translate(-50%, 20px); background: var(--forest-green); color: var(--text-light); border: 1px solid var(--gold-accent); padding: 14px 26px; border-radius: 4px; font-size: .8rem; letter-spacing: 1px; z-index: 3000; opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s; max-width: 90vw; text-align: center; display: inline-flex; align-items: center; gap: 10px; }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-    @media (max-width: 900px) {
-      .ev-grid { grid-template-columns: 1fr; gap: 28px; }
-      .ev-card { padding: 40px 28px 32px; }
-      .ev-name { font-size: 1.6rem; }
-      #events { padding: 100px 20px 110px; }
-    }
-    @media (max-width: 640px) {
-      .cd-timer { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-      .cd-box { padding: 28px 12px 22px; }
-      .cd-val { font-size: 3.2rem; }
-      #countdown-section .section-title { font-size: 2.4rem; }
-      #countdown-section { padding: 90px 20px 100px; }
-    }
-    @media (max-width: 480px) {
-      .ev-meta { grid-template-columns: 1fr; }
-      .ev-card { padding: 36px 22px 28px; }
-      .ev-icon-wrap { width: 48px; height: 48px; }
-      .ev-name { font-size: 1.45rem; }
-      .ev-schedule li { padding-left: 30px; }
-      #events::before { display: none; }
-    }
-
+    /* =========================================================
+       RESPONSIVE NAVIGATION (THE FIX)
+       ========================================================= */
     @media (max-width: 1080px) {
       .nav-links { gap: 12px; }
       .nav-links a { font-size: .62rem; letter-spacing: 1.4px; }
     }
+
     @media (max-width: 900px) {
       nav { padding: 14px 20px; }
       .nav-toggle { display: flex; }
-      /* Mobile Menu Slides Down */
+      
+      /* HIDE MENU COMPLETELY WHEN CLOSED */
       .nav-links { 
+        display: none; /* Hide from render tree entirely */
         position: absolute; 
         top: 100%; 
         left: 0; 
@@ -355,13 +337,16 @@
         justify-content: center; 
         align-items: center; 
         gap: 26px; 
-        transform: translateY(-110%); 
-        transition: transform .4s; 
         color: var(--text-light); 
         z-index: 2; 
         padding: 30px 20px; 
       }
-      .nav-links.open { transform: translateY(0); }
+      
+      /* SHOW MENU ONLY WHEN HAMBURGER IS CLICKED */
+      .nav-links.open { 
+        display: flex; 
+      }
+      
       .nav-links a { font-size: .9rem; letter-spacing: 3px; }
       .section-title { font-size: 2.4rem; }
       .couple-grid, .gift-methods { grid-template-columns: 1fr; gap: 30px; }
@@ -369,7 +354,12 @@
       .gallery-item.tall { grid-row: auto; }
       .reminder-grid { grid-template-columns: repeat(2, 1fr); }
       .scan-gift-banner { flex-direction: column; text-align: center; }
+      .ev-grid { grid-template-columns: 1fr; gap: 28px; }
+      .ev-card { padding: 40px 28px 32px; }
+      .ev-name { font-size: 1.6rem; }
+      #events { padding: 100px 20px 110px; }
     }
+
     @media (max-width: 768px) {
       section { padding: 70px 16px; }
       #gateway .names, #home .names-inline { font-size: 2.8rem; }
@@ -381,7 +371,13 @@
       .lightbox-prev { left: 10px; }
       .lightbox-next { right: 10px; }
       .lightbox-close { top: 12px; right: 12px; }
+      .cd-timer { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .cd-box { padding: 28px 12px 22px; }
+      .cd-val { font-size: 3.2rem; }
+      #countdown-section .section-title { font-size: 2.4rem; }
+      #countdown-section { padding: 90px 20px 100px; }
     }
+
     @media (max-width: 480px) {
       #gateway .names, #home .names-inline { font-size: 2.2rem; }
       .section-title { font-size: 2rem; }
@@ -390,7 +386,14 @@
       .attendance-options { grid-template-columns: 1fr; }
       .venue-copy-box { flex-direction: column; gap: 10px; }
       .qr-placeholder { width: 110px; height: 110px; }
+      .ev-meta { grid-template-columns: 1fr; }
+      .ev-card { padding: 36px 22px 28px; }
+      .ev-icon-wrap { width: 48px; height: 48px; }
+      .ev-name { font-size: 1.45rem; }
+      .ev-schedule li { padding-left: 30px; }
+      #events::before { display: none; }
     }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -427,10 +430,11 @@
     </defs>
   </svg>
 
-  <!-- ================= NAVIGATION ================= -->
+  <!-- =========================================================
+       NAVIGATION
+       ========================================================= -->
   <nav id="navbar">
     <a href="#home" class="nav-logo">A &amp; M</a>
-    
     <ul class="nav-links" id="navLinks">
       <li><a href="#home">Home</a></li>
       <li><a href="#couple">Couple</a></li>
@@ -443,12 +447,10 @@
       <li><a href="#gift">Gift</a></li>
       <li><a href="admin.html" style="color: var(--gold-muted);">Admin</a></li>
     </ul>
-    
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
   </nav>
-  <!-- ================= END NAVIGATION ================= -->
 
   <section id="gateway">
     <span class="section-tag" style="color:#a8b8ad;">Together With Their Families</span>
