@@ -33,6 +33,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+
   <style>
     :root {
       --forest-green: #1c2b22;
@@ -88,7 +89,9 @@
     .btn-open .icon { transition: transform .3s; }
     .btn-open:hover .icon { transform: translateX(4px); }
 
-    #home { background: linear-gradient(rgba(28,43,34,.82), rgba(28,43,34,.82)), url("Image%202026-05-01%20at%2017.20.21%20(1)%20copy.jpeg") center center / cover no-repeat; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-light); text-align: center; padding: 80px 20px; }
+    /* ⬇️ FIXED: Now points to Hello.jpg */
+    #home { background: linear-gradient(rgba(28,43,34,.82), rgba(28,43,34,.82)), url("Hello.jpg") center center / cover no-repeat; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--text-light); text-align: center; padding: 80px 20px; }
+    
     #home .names-inline { font-family: 'Cormorant Garamond', serif; font-size: 4rem; line-height: 1.1; margin: 10px 0; letter-spacing: 1px; }
     .scroll-indicator { position: absolute; bottom: 30px; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: .65rem; letter-spacing: 3px; color: var(--gold-accent); text-transform: uppercase; }
     .mouse-icon { width: 20px; height: 32px; border: 1px solid var(--gold-accent); border-radius: 12px; position: relative; }
@@ -877,11 +880,6 @@
         return o.data;
       } catch (e) { return null; }
     }
-
-    /* =========================================================
-       Reservation ID — format: AML-YYYY-MMDD-XXXXXX
-       (e.g. AML-2026-1017-318259)
-       ========================================================= */
     function makeReservationId() {
       const now = new Date();
       const yyyy = now.getUTCFullYear();
@@ -1030,22 +1028,15 @@
       });
     }
 
-    /* =========================================================
-       PDF — labels with colons, multi-line VENUE,
-       auto-wrapped values, and "Need support or help?" footer
-       ========================================================= */
     function buildPDFBlob(rec, qrDataUrl) {
       if (!window.jspdf || !window.jspdf.jsPDF) throw new Error('PDF library not loaded');
       const jsPDF = window.jspdf.jsPDF;
       const doc = new jsPDF({ unit: 'pt', format: 'a5' });
-      const W = doc.internal.pageSize.getWidth();   // 419.5
-      const H = doc.internal.pageSize.getHeight();  // 595.3
+      const W = doc.internal.pageSize.getWidth();
+      const H = doc.internal.pageSize.getHeight();
       const M = 36;
 
-      // Background
       doc.setFillColor(247, 244, 238); doc.rect(0, 0, W, H, 'F');
-
-      // Header band
       doc.setFillColor(28, 43, 34); doc.rect(0, 0, W, 80, 'F');
       doc.setDrawColor(197, 160, 89); doc.setLineWidth(0.8); doc.line(M, 80, W - M, 80);
 
@@ -1055,7 +1046,6 @@
       doc.setFontSize(22); doc.setTextColor(247, 244, 238);
       doc.text('Asifiwe  &  Mambo', W / 2, 62, { align: 'center' });
 
-      // Reservation card
       let y = 94;
       doc.setFillColor(239, 235, 228); doc.roundedRect(M, y, W - 2 * M, 50, 3, 3, 'F');
 
@@ -1074,7 +1064,6 @@
       else    doc.setTextColor(122, 130, 124);
       doc.text(ok ? 'ATTENDING' : 'DECLINED', W - M - 57, y + 29, { align: 'center' });
 
-      // Detail rows
       y = 162;
       const labelX = M + 12;
       const valueX = M + 95;
@@ -1095,13 +1084,11 @@
       ];
 
       rows.forEach(function (row) {
-        // Label
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(7);
         doc.setTextColor(122, 130, 124);
         doc.text(row.label, labelX, y);
 
-        // Value (with auto-wrap)
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(9);
         doc.setTextColor(44, 51, 46);
@@ -1118,7 +1105,6 @@
         y = vy + 3;
       });
 
-      // QR block
       y += 10;
       const qrSize = 92;
       doc.setDrawColor(197, 160, 89); doc.setLineWidth(0.8);
@@ -1135,7 +1121,6 @@
         { maxWidth: W - (M + qrSize + 24) - M - 4, lineHeightFactor: 1.4 }
       );
 
-      // Footer
       doc.setFont('times', 'normal'); doc.setFontSize(9); doc.setTextColor(197, 160, 89);
       doc.text('With love — Asifiwe & Mambo', W / 2, H - 46, { align: 'center' });
 
@@ -1158,9 +1143,6 @@
       setTimeout(function () { a.remove(); }, 150);
     }
 
-    /* =========================================================
-       EMAIL — Web3Forms + reminder body
-       ========================================================= */
     async function notifyByEmail(rec, verifyUrl) {
       if (!CONFIG.WEB3FORMS_KEY || CONFIG.WEB3FORMS_KEY.length < 20) throw new Error('Web3Forms key missing');
 
