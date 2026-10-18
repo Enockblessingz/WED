@@ -515,7 +515,6 @@
       <li><a href="#rsvp">RSVP</a></li>
       <li><a href="#reminder">Reminder</a></li>
       <li><a href="#gift">Gift</a></li>
-      <!-- Added Admin Link -->
       <li><a href="#admin" style="color: var(--gold-muted);">Admin</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
@@ -934,19 +933,21 @@
       contactPhone: '+250 790 458 440'
     };
 
-    // 🔥 REQUIRED: Paste your Firebase config here to enable secure auth & cloud sync
+    // Your live Firebase Config
     const FIREBASE_CONFIG = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyDOiA0Q3OfUkDIcQ2SQmkATb96iPiG0osE",
+      authDomain: "wedding-invitation-483c0.firebaseapp.com",
+      projectId: "wedding-invitation-483c0",
+      storageBucket: "wedding-invitation-483c0.firebasestorage.app",
+      messagingSenderId: "461911797501",
+      appId: "1:461911797501:web:7163de7a7d8978f31ad894",
+      measurementId: "G-QVJ5S2V613"
     };
 
     let db = null;
     let auth = null;
-    // Initialize Firebase if config is provided
+    
+    // Initialize Firebase
     if (FIREBASE_CONFIG.apiKey !== 'YOUR_API_KEY') {
       firebase.initializeApp(FIREBASE_CONFIG);
       db = firebase.firestore();
