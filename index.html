@@ -887,21 +887,21 @@
        ========================================================= */
     const CONFIG = {
       ADMIN_PASSWORD: 'admin123',
-      COUPLE_EMAIL: 'asifiwe.and.mambo@gmail.com',
+      COUPLE_EMAIL: 'enockblessingz250@gmail.com',
       WEB3FORMS_KEY: '05a6e370-0919-4b3d-95a0-65339bd8014f',
       weddingDateISO: '2026-12-11T09:00:00+02:00',
       startUTC: '20261211T070000Z',
       endUTC:   '20261211T210000Z',
       eventTitle:   'ASIFIWE & MAMBO — Wedding',
       eventLocation:'UCC GIKONDO PARISH & IMPINGA VILLAGE KK 518 · KICUKIRO, Rwanda',
-      eventDetails: 'Introduction 9:00 AM · Religious Ceremony 2:00 PM · Reception 5:00 PM · After Party 8:00 PM',
+      eventDetails: 'Introduction 09:00 AM · Religious Ceremony 14:00 PM · Reception 17:00 PM · After Party 8:00 PM',
       mapsUrl:      'https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali',
-      eventWhen:  'Friday · Dec 11, 2026 · 9:00 AM Rwanda Time',
-      eventWhere: 'UCC Gikondo Parish & Impinga Village KK 518, Kicukiro, Kigali, Rwanda',
+      eventWhen:  'Friday · Dec 11, 2026 · 09:00 AM Rwanda Time',
+      eventWhere: 'Impinga Village KK 518 St & UCC Gikondo Parish, Kicukiro, Kigali, Rwanda',
       contactPhone: '+250 790 458 440'
     };
 
-    // 🔥 OPTIONAL: Paste your Firebase config here to enable cloud sync
+    // 🔥 OPTIONAL: Paste your Firebase config here to enable cloud sync across devices
     const FIREBASE_CONFIG = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_PROJECT.firebaseapp.com",
@@ -1151,7 +1151,7 @@
       doc.setDrawColor(197, 160, 89); doc.setLineWidth(0.8); doc.line(M, 80, W - M, 80);
 
       doc.setFont('times', 'normal'); doc.setFontSize(8); doc.setTextColor(197, 160, 89);
-      doc.text('WEDDING RSVP  ·  11 DECEMBER 2026', W / 2, 30, { align: 'center' });
+      doc.text('WEDDING RSVP  ·  DECEMBER 11, 2026', W / 2, 30, { align: 'center' });
 
       doc.setFontSize(22); doc.setTextColor(247, 244, 238);
       doc.text('Asifiwe  &  Mambo', W / 2, 62, { align: 'center' });
@@ -1222,7 +1222,7 @@
       doc.addImage(qrDataUrl, 'PNG', M + 8, y + 4, qrSize, qrSize);
 
       doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(44, 51, 46);
-      doc.text('SCAN AT THE DOOR', M + qrSize + 24, y + 18);
+      doc.text('SCAN AT THE ENTRANCE!', M + qrSize + 24, y + 18);
 
       doc.setFont('helvetica', 'normal'); doc.setFontSize(7); doc.setTextColor(122, 130, 124);
       doc.text(
@@ -1362,7 +1362,7 @@
       };
 
       try {
-        // 1. Save to Database
+        // 1. Save to Database (Firebase or LocalStorage)
         if (db) {
           await db.collection('rsvps').doc(rec.id).set(rec);
         } else {
