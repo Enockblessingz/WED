@@ -31,7 +31,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Libraries: PDF, QR Code, Firebase (Auth + Database) -->
+  <!-- Libraries: PDF, QR Code, Firebase (Compat for single-file usage) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
@@ -316,7 +316,9 @@
     .adm-auth-container input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #d8d0c2; border-radius: 4px; font-family: inherit; }
     .adm-auth-container button { width: 100%; padding: 14px; background: #1c2b22; color: #fff; border: none; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 15px; transition: background 0.3s; }
     .adm-auth-container button:hover { background: #c5a059; }
+    .adm-auth-container button:disabled { opacity: 0.7; cursor: not-allowed; }
     .adm-auth-toggle { font-size: 0.8rem; color: #7a827c; cursor: pointer; text-decoration: underline; }
+    .adm-error { display: none; background: #ffebee; color: #c62828; padding: 10px; border-radius: 4px; font-size: 0.8rem; margin-bottom: 15px; border: 1px solid #ffcdd2; text-align: left; }
     
     /* Dashboard Area */
     #adm-main-content { display: none; }
@@ -421,6 +423,8 @@
       <h2 id="auth-title">Admin Sign In</h2>
       <p style="font-size: 0.85rem; color: #7a827c; margin-bottom: 20px;">Secure area for authorized personnel only.</p>
       
+      <div id="auth-error-msg" class="adm-error"></div>
+
       <input type="email" id="auth-email" placeholder="Email Address">
       <input type="password" id="auth-password" placeholder="Password">
       
@@ -911,7 +915,7 @@
     <span id="toastMsg"></span>
   </div>
 
-   <script>
+  <script>
   document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
@@ -933,7 +937,7 @@
       contactPhone: '+250 790 458 440'
     };
 
-    // Your live Firebase Config
+    // Your live Firebase Config (adapted for compat SDK)
     const FIREBASE_CONFIG = {
       apiKey: "AIzaSyDOiA0Q3OfUkDIcQ2SQmkATb96iPiG0osE",
       authDomain: "wedding-invitation-483c0.firebaseapp.com",
@@ -948,12 +952,12 @@
     let auth = null;
     
     // Initialize Firebase
-    if (typeof firebase !== 'undefined' && FIREBASE_CONFIG.apiKey !== 'YOUR_API_KEY') {
+    if (typeof firebase === 'undefined') {
+      console.warn("Firebase SDK blocked or not loaded. If you are using an adblocker, please disable it.");
+    } else {
       firebase.initializeApp(FIREBASE_CONFIG);
       db = firebase.firestore();
       auth = firebase.auth();
-    } else {
-      console.warn("Firebase SDK not loaded or config missing.");
     }
 
     /* =========================================================
@@ -1649,14 +1653,22 @@
       document.getElementById('auth-title').textContent = isSignupMode ? 'Admin Sign Up' : 'Admin Sign In';
       document.getElementById('auth-submit-btn').textContent = isSignupMode ? 'Create Account' : 'Sign In';
       document.getElementById('auth-toggle').textContent = isSignupMode ? 'Already have an account? Sign In' : 'Need an account? Sign Up';
+      document.getElementById('auth-error-msg').style.display = 'none';
     };
 
     window.handleAuthSubmit = async function() {
       const email = document.getElementById('auth-email').value;
       const pass = document.getElementById('auth-password').value;
       const btn = document.getElementById('auth-submit-btn');
+      const errorBox = document.getElementById('auth-error-msg');
       
-      if (!email || !pass) return alert("Please enter email and password.");
+      errorBox.style.display = 'none';
+
+      if (!email || !pass) {
+        errorBox.textContent = "Please enter both email and password.";
+        errorBox.style.display = 'block';
+        return;
+      }
       
       btn.disabled = true;
       btn.textContent = 'Please wait...';
@@ -1679,10 +1691,12 @@
           msg = "Password is too weak. Please use at least 6 characters.";
         } else if (err.code === 'auth/invalid-email') {
           msg = "Please enter a valid email address.";
-        } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        } else if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
           msg = "Incorrect email or password.";
         }
-        alert("Authentication Error:\n\n" + msg);
+        
+        errorBox.textContent = msg;
+        errorBox.style.display = 'block';
       } finally {
         btn.disabled = false;
         btn.textContent = isSignupMode ? 'Create Account' : 'Sign In';
@@ -1711,7 +1725,7 @@
       } catch (err) {
         console.error("Error loading data:", err);
         allRsvps = [];
-        alert("Could not load RSVPs. Check Firestore rules to ensure logged-in users can read the data.");
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px; color:#a94442;">Could not load RSVPs. Check Firestore rules to ensure logged-in users can read the data.</td></tr>';
       }
       
       updateAdminStats();
