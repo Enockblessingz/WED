@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Admin — Asifiwe & Mambo</title>
-  <meta name="robots" content="noindex, nofollow"> <!-- Keeps this page hidden from Google -->
+  <meta name="robots" content="noindex, nofollow">
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231c2b22'/><text y='70' x='50' text-anchor='middle' font-size='46' fill='%23c5a059' font-family='Georgia,serif'>A%26L</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -38,7 +37,7 @@
     .auth-box button:hover { background: var(--gold-accent); }
     .auth-box button:disabled { opacity: 0.6; cursor: not-allowed; }
     
-    .auth-error { display: none; background: #ffebee; color: #c62828; padding: 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 20px; border: 1px solid #ffcdd2; text-align: left; }
+    .auth-error { display: none; background: #ffebee; color: #c62828; padding: 12px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 20px; border: 1px solid #ffcdd2; text-align: left; line-height: 1.4; }
     .auth-toggle { display: inline-block; margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; text-decoration: underline; transition: color 0.2s; }
     .auth-toggle:hover { color: var(--forest-green); }
     .back-link { display: block; margin-top: 25px; font-size: 0.8rem; color: var(--gold-accent); text-decoration: none; }
@@ -142,7 +141,6 @@
   </div>
 
   <script>
-    // Your Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDOiA0Q3OfUkDIcQ2SQmkATb96iPiG0osE",
       authDomain: "wedding-invitation-483c0.firebaseapp.com",
@@ -166,12 +164,10 @@
        ========================================= */
     auth.onAuthStateChanged(user => {
       if (user) {
-        // Logged in
         document.getElementById('auth-screen').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         loadData();
       } else {
-        // Logged out
         document.getElementById('auth-screen').style.display = 'flex';
         document.getElementById('dashboard').style.display = 'none';
       }
