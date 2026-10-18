@@ -413,6 +413,8 @@
       <li><a href="#rsvp">RSVP</a></li>
       <li><a href="#reminder">Reminder</a></li>
       <li><a href="#gift">Gift</a></li>
+      <!-- NEW ADMIN LINK ADDED HERE -->
+      <li><a href="admin.html" style="color: var(--gold-muted);">Admin</a></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
@@ -714,6 +716,18 @@
               <option value="6 guests">6 guests</option>
               <option value="7 guests">7 guests</option>
               <option value="8 guests">8 guests</option>
+              <option value="3 guests">9 guests</option>
+              <option value="4 guests">10 guests</option>
+              <option value="5 guests">11 guests</option>
+              <option value="6 guests">12 guests</option>
+              <option value="7 guests">13 guests</option>
+              <option value="8 guests">14 guests</option>
+              <option value="3 guests">15 guests</option>
+              <option value="4 guests">16 guests</option>
+              <option value="5 guests">17 guests</option>
+              <option value="6 guests">18 guests</option>
+              <option value="7 guests">19 guests</option>
+              <option value="8 guests">20 guests</option>
             </select>
           </div>
           <div class="form-group">
@@ -818,7 +832,7 @@
       weddingDateISO: '2026-12-11T09:00:00+02:00',
       startUTC: '20261211T070000Z',
       endUTC:   '20261211T210000Z',
-      eventTitle:   'ASIFIWE & MAMBO — Wedding',
+      eventTitle:   'ASIFIWE & MAMBO — Wedding Invitation',
       eventLocation:'UCC GIKONDO PARISH & IMPINGA VILLAGE KK 518 · KICUKIRO, Rwanda',
       eventDetails: 'Introduction 09:00 AM · Religious Ceremony 14:00 PM · Reception 17:00 PM · After Party 8:00 PM',
       mapsUrl:      'https://www.google.com/maps/search/?api=1&query=Impinga%20Village%2C%20KK%20518%20St%2C%20Kigali',
@@ -1105,7 +1119,7 @@
         { label: 'NUMBER OF GUESTS:', value: rec.guests },
         { label: 'PHONE NUMBER:',     value: rec.phone },
         { label: 'EMAIL ADDRESS:',    value: rec.email || '—' },
-        { label: 'TAKE PLACE ON:',    value: 'Friday · Dec 11, 2026 · 9:00 AM' },
+        { label: 'TAKE PLACE ON:',    value: 'Friday · December 11, 2026 · 09:00 AM' },
         { label: 'VENUE :',           value: [
             'Introduction & Dowry Ceremony At Impinga Village, KK 518 St, Kigali.',
             'Religious Wedding Ceremony UCC Gikondo Parish.'
@@ -1445,7 +1459,7 @@
 
       const tag = document.createElement('p');
       tag.style.cssText = 'font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:#c5a059;margin:0 0 24px';
-      tag.textContent = 'Asifiwe & Mambo · 11 Dec 2026';
+      tag.textContent = 'Asifiwe & Mambo · Friday December 11, 2026';
       card.appendChild(tag);
 
       const table = document.createElement('div');
